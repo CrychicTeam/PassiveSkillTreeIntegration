@@ -193,8 +193,8 @@ dependencies {
     minecraft "net.neoforged:forge:${config.mc_version}-${config.forge_version}"
     compileOnly(annotationProcessor("com.github.llamalad7.mixinextras:mixinextras-common:${config.mixin_extras_version}"))
 
-    implementation fg.deobf("com.tterrag.registrate:Registrate:${config.registrate_version}")
-    jarJar(group: 'com.tterrag.registrate', name: 'Registrate', version: "[MC1.20,MC1.21)")
+//    implementation fg.deobf("com.tterrag.registrate:Registrate:${config.registrate_version}")
+//    jarJar(group: 'com.tterrag.registrate', name: 'Registrate', version: "[MC1.20,MC1.21)")
 
     if (hasConfig("jei_version") && !config.jei_version.isEmpty()) {
         compileOnly fg.deobf("mezz.jei:jei-${config.mc_version}-common-api:${config.jei_version}")
@@ -242,6 +242,21 @@ dependencies {
         implementation fg.deobf("dev.xkmc.l2serial:l2serial:${config.l2serial_version}")
         jarJar(group: 'dev.xkmc', name: 'l2serial', version: "[${config.l2serial_version},)")
     }
+    // attribute fix
+    implementation fg.deobf("curse.maven:attributefix-280510:4648448")
+    // max health fix
+    implementation fg.deobf("curse.maven:max-health-fix-492246:4648479")
+    // dummy target
+    implementation fg.deobf("curse.maven:mmmmmmmmmmmm-225738:4602101")
+    implementation fg.deobf("curse.maven:selene-499980:4656567")
+    // apple skin
+    implementation fg.deobf("curse.maven:appleskin-248787:4605078")
+
+    implementation fg.deobf("curse.maven:item-production-lib-950401:5097458")
+    implementation fg.deobf("curse.maven:framework-549225:5911986")
+    implementation fg.deobf("curse.maven:mrcrayfishs-gun-mod-unofficial-945471:5610926")
+
+    implementation fg.deobf("curse.maven:passive-skill-tree-850298:5715659")
 
     def libraries = new File(file("libraries"), "${config.mc_version}")
     if (!libraries.isDirectory()) libraries.mkdirs()
