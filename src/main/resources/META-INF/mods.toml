@@ -33,6 +33,12 @@ mandatory=true
 versionRange="${minecraft_version_range}"
 ordering="NONE"
 side="BOTH"
+[[dependencies.${mod_id}]]
+modId="skilltree"
+mandatory=true
+versionRange="[0.6.1,)"
+ordering="NONE"
+side="BOTH"
 #[[dependencies.${mod_id}]]
 #    modId="curios"
 #    mandatory=true

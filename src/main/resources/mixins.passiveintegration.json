@@ -6,8 +6,10 @@
   "refmap": "passiveintegration.refmap.json",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "EnchantedConditionMixin",
-    "ProjectileDamageConditionMixin"
+    "cgm.bonuscompat.EnchantedConditionMixin",
+    "cgm.bonuscompat.ProjectileDamageConditionMixin",
+    "cgm.bonuscompat.crithandler.ProjectileEntityCritMixin",
+    "cgm.bonuscompat.crithandler.SkillBonusHandlerMixin"
   ],
   "client": [
   ],

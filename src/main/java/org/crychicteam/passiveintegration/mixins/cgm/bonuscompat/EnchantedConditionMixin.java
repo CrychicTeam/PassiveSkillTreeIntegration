@@ -1,4 +1,4 @@
-package org.crychicteam.passiveintegration.mixins;
+package org.crychicteam.passiveintegration.mixins.cgm.bonuscompat;
 
 import com.mrcrayfish.guns.item.GunItem;
 import daripher.skilltree.skill.bonus.condition.item.EnchantedCondition;
