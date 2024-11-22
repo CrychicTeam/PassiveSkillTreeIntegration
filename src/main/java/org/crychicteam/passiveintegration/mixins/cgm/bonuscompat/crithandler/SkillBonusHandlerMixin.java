@@ -15,6 +15,8 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.player.CriticalHitEvent;
+import org.crychicteam.passiveintegration.config.CgmConfig;
 import org.crychicteam.passiveintegration.util.BonusHandler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -30,38 +32,40 @@ import java.util.Iterator;
 public class SkillBonusHandlerMixin {
     @Inject(method = "applyCritBonuses(Lnet/minecraftforge/event/entity/living/LivingHurtEvent;)V", at = @At(value = "HEAD"), remap = false, cancellable = true)
     private static void passiveIntegration$applyCriticalBonuses(LivingHurtEvent event, CallbackInfo ci) {
-        // Configuration control needed.
-        if (event.getSource().getDirectEntity() instanceof ProjectileEntity) ci.cancel();
+        if (event.getSource().getDirectEntity() instanceof ProjectileEntity) {
+            ci.cancel();
+        }
     }
 
     @Inject(method = "applyArrowRetrievalBonus", at = @At(value = "HEAD"), remap = false)
     private static void passiveIntegration$applyArrowRetrievalBonus(LivingHurtEvent event, CallbackInfo ci) {
         Entity var2 = event.getSource().getDirectEntity();
         if (var2 instanceof ProjectileEntity projectile) {
-            Entity var3 = event.getSource().getEntity();
-            if (var3 instanceof Player player) {
-                AbstractArrowAccessor var10 = (AbstractArrowAccessor) projectile;
-                ItemStack arrowStack = var10.invokeGetPickupItem();
-                if (arrowStack != null) {
-                    float retrievalChance = 0.0F;
+            if (CgmConfig.ENABLE_AMMO_RETRIEVAL.get()) {
+                Entity var3 = event.getSource().getEntity();
+                if (var3 instanceof Player player) {
+                    AbstractArrowAccessor var10 = (AbstractArrowAccessor) projectile;
+                    ItemStack arrowStack = var10.invokeGetPickupItem();
+                    if (arrowStack != null) {
+                        float retrievalChance = 0.0F;
 
-                    for (ArrowRetrievalBonus bonus : BonusHandler.getSkillBonuses(player, ArrowRetrievalBonus.class)) {
-                        retrievalChance += bonus.getChance();
-                    }
+                        for (ArrowRetrievalBonus bonus : BonusHandler.getSkillBonuses(player, ArrowRetrievalBonus.class)) {
+                            retrievalChance += bonus.getChance();
+                        }
 
-                    int level = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.RECLAIMED.get(),
-                            player.getMainHandItem());
-                    if (level > 0) {
-                        // Configuration value needed.
-                        retrievalChance += (level * 0.15f);
-                    }
+                        int level = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.RECLAIMED.get(),
+                                player.getMainHandItem());
+                        if (level > 0) {
+                            retrievalChance += (level * CgmConfig.RECLAIMED_ENCHANTMENT_BONUS.get().floatValue());
+                        }
 
-                    if (player.getRandom().nextFloat() < retrievalChance) {
-                        LivingEntity target = event.getEntity();
-                        CompoundTag targetData = target.getPersistentData();
-                        ListTag stuckArrowsTag = targetData.getList("StuckArrows", new CompoundTag().getId());
-                        stuckArrowsTag.add(arrowStack.save(new CompoundTag()));
-                        targetData.put("StuckArrows", stuckArrowsTag);
+                        if (player.getRandom().nextFloat() < retrievalChance) {
+                            LivingEntity target = event.getEntity();
+                            CompoundTag targetData = target.getPersistentData();
+                            ListTag stuckArrowsTag = targetData.getList("StuckArrows", new CompoundTag().getId());
+                            stuckArrowsTag.add(arrowStack.save(new CompoundTag()));
+                            targetData.put("StuckArrows", stuckArrowsTag);
+                        }
                     }
                 }
             }

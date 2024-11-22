@@ -6,6 +6,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import org.crychicteam.passiveintegration.config.CgmConfig;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -35,8 +36,7 @@ public class ReloadTrackerMixin {
         }
 
         AttributeInstance attribute = player.getAttribute(Attributes.ATTACK_SPEED);
-        // Configuration control needed.
-        if (attribute == null) {
+        if (attribute == null || !CgmConfig.ENABLE_RELOAD_INTERVAL_BONUS.get()) {
             int interval = GunEnchantmentHelper.getReloadInterval(this.stack);
             cir.setReturnValue(deltaTicks % interval == 0);
             return;

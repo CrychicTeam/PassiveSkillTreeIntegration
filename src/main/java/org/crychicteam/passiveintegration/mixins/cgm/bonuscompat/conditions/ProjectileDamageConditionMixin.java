@@ -15,7 +15,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class ProjectileDamageConditionMixin {
     @Inject(method = "met", at = @At(value = "RETURN"), cancellable = true, remap = false)
     private void onProjectileDamageConditionMet(DamageSource source, CallbackInfoReturnable<Boolean> cir) {
-        // Configuration control needed.
         cir.setReturnValue(cir.getReturnValue() || source.getDirectEntity() instanceof ProjectileEntity);
     }
 }

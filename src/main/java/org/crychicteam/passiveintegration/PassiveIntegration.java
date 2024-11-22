@@ -1,7 +1,12 @@
 package org.crychicteam.passiveintegration;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
+import org.crychicteam.passiveintegration.config.CgmConfig;
 
 import java.util.logging.Logger;
 
@@ -13,5 +18,16 @@ public class PassiveIntegration
 	public static ResourceLocation id(String path)
 	{
 		return new ResourceLocation(MOD_ID, path);
+	}
+
+	public PassiveIntegration() {
+		ModLoadingContext cxt = ModLoadingContext.get();
+		registerConfig(cxt, "cgm", CgmConfig.SPEC);
+	}
+
+	private void registerConfig(ModLoadingContext cxt, String mod, ForgeConfigSpec config) {
+		if (ModList.get().isLoaded(mod)) {
+			cxt.registerConfig(ModConfig.Type.COMMON, config, "passive" + mod + "-integration.toml");
+		}
 	}
 }

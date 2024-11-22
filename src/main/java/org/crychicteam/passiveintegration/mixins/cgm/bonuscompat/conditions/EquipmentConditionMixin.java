@@ -15,7 +15,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class EquipmentConditionMixin {
     @Inject(method = "isRangedWeapon", at = @At("RETURN"), remap = false, cancellable = true)
     private static void passiveIntegration$isRangedWeapon(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
-        // Configuration control needed.
         cir.setReturnValue(cir.getReturnValue() || stack.getItem() instanceof GunItem);
     }
 }
