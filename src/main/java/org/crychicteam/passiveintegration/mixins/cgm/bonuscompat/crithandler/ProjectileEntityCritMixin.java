@@ -12,10 +12,12 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.CriticalHitEvent;
+import org.crychicteam.passiveintegration.PassiveIntegration;
 import org.crychicteam.passiveintegration.config.CgmConfig;
 import org.crychicteam.passiveintegration.util.BonusHandler;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -24,7 +26,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 /**
  * @author M1hono.
  */
-@Mixin(ProjectileEntity.class)
+@Mixin(value = ProjectileEntity.class, remap = false)
+@Pseudo
 public abstract class ProjectileEntityCritMixin implements AbstractArrowAccessor {
     @Shadow(remap = false)
     public abstract LivingEntity getShooter();
@@ -33,6 +36,9 @@ public abstract class ProjectileEntityCritMixin implements AbstractArrowAccessor
 
     @Inject(method = "getCriticalDamage", at = @At("HEAD"), cancellable = true, remap = false)
     private void passiveIntegration$modifyCriticalDamage(ItemStack weapon, RandomSource rand, float damage, CallbackInfoReturnable<Float> cir) {
+        if (!PassiveIntegration.isLoaded("cgm")) {
+            return;
+        }
         if (CgmConfig.ENABLE_CRIT_INTEGRATION.get()) {
             if(!(this.getShooter() instanceof ServerPlayer player)) {
                 return;

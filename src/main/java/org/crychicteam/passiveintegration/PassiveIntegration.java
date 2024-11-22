@@ -26,8 +26,12 @@ public class PassiveIntegration
 	}
 
 	private void registerConfig(ModLoadingContext cxt, String mod, ForgeConfigSpec config) {
-		if (ModList.get().isLoaded(mod)) {
+		if (isLoaded(mod)) {
 			cxt.registerConfig(ModConfig.Type.COMMON, config, "passive" + mod + "-integration.toml");
 		}
+	}
+
+	public static Boolean isLoaded(String mod) {
+        return ModList.get().isLoaded(mod);
 	}
 }

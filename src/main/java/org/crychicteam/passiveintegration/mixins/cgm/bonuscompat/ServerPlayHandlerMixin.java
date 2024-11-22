@@ -8,13 +8,19 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.entity.player.Player;
+import org.crychicteam.passiveintegration.PassiveIntegration;
 import org.crychicteam.passiveintegration.config.CgmConfig;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(ServerPlayHandler.class)
+/**
+ * @author M1hono.
+ */
+@Mixin(value = ServerPlayHandler.class, remap = false)
+@Pseudo
 public class ServerPlayHandlerMixin {
     @Inject(
             method = "handleShoot",
@@ -24,6 +30,9 @@ public class ServerPlayHandlerMixin {
             ),
             cancellable = true)
     private static void passiveintegration$handleReclaimed(C2SMessageShoot message, ServerPlayer player, CallbackInfo ci) {
+        if (!PassiveIntegration.isLoaded("cgm")) {
+            return;
+        }
         if (!CgmConfig.ENABLE_ORIGINAL_DECLAIM.get()) {
             var item = player.getMainHandItem().getItem();
             CompoundTag tag = player.getMainHandItem().getOrCreateTag();
