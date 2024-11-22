@@ -2,10 +2,12 @@ package org.crychicteam.passiveintegration.optional.cgm;
 
 import com.mrcrayfish.guns.entity.ProjectileEntity;
 import com.mrcrayfish.guns.init.ModEnchantments;
+import com.mrcrayfish.guns.item.GunItem;
 import daripher.skilltree.mixin.AbstractArrowAccessor;
 import daripher.skilltree.skill.bonus.player.ArrowRetrievalBonus;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -15,7 +17,23 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import org.crychicteam.passiveintegration.config.CgmConfig;
 import org.crychicteam.passiveintegration.util.BonusHandler;
 
+/**
+ * @author M1hono
+ */
 public class OptionalBonusAction {
+    public static boolean isProjectileDamage(DamageSource source, boolean originalResult) {
+        return originalResult || source.getDirectEntity() instanceof ProjectileEntity;
+    }
+
+    public static boolean isRangedWeapon(ItemStack stack, boolean originalResult) {
+        return originalResult || stack.getItem() instanceof GunItem;
+    }
+
+    public static boolean isEnchanted(ItemStack stack, boolean originalResult) {
+        return originalResult || (stack.getItem() instanceof GunItem &&
+                !EnchantmentHelper.getEnchantments(stack).isEmpty());
+    }
+
     public static boolean shouldCancelCritBonuses(LivingHurtEvent event) {
         return event.getSource().getDirectEntity() instanceof ProjectileEntity;
     }

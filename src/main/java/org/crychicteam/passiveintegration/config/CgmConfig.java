@@ -11,7 +11,7 @@ public class CgmConfig {
     public static final ForgeConfigSpec.BooleanValue ENABLE_AMMO_RETRIEVAL;
     public static final ForgeConfigSpec.DoubleValue RECLAIMED_ENCHANTMENT_BONUS;
     public static final ForgeConfigSpec.BooleanValue ENABLE_ORIGINAL_DECLAIM;
-
+    public static final ForgeConfigSpec.BooleanValue ENABLE_RETRIEVAL_BONUS_ON_DECLAIM;
     public static final ForgeConfigSpec.BooleanValue ENABLE_RELOAD_INTERVAL_BONUS;
 
     static {
@@ -29,6 +29,11 @@ public class CgmConfig {
                 .comment("Enable original Reclaimed logic")
                 .comment("Would be useful when enable Ammo Retrieval Bonus to avoid similar behavior.")
                 .define("enableOriginalReclaimed", false);
+
+        ENABLE_RETRIEVAL_BONUS_ON_DECLAIM = BUILDER
+                .comment("Replace original Reclaimed logic with Ammo Retrieval bonus")
+                .comment("When disable OriginalReclaimed, the bonus of retrieval chance Reclaimed enchantment provides.")
+                .define("enableRetrievalBonusOnDeath", true);
 
         RECLAIMED_ENCHANTMENT_BONUS = BUILDER
                 .comment("The bonus value for Reclaimed enchantment")

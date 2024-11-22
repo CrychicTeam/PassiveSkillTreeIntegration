@@ -16,12 +16,10 @@ public class SkillBonusHandlerMixin {
             remap = false,
             cancellable = true)
     private static void passiveIntegration$applyCriticalBonuses(LivingHurtEvent event, CallbackInfo ci) {
-        if (!PassiveIntegration.isLoaded("cgm")) {
-            return;
-        }
-
-        if (OptionalBonusAction.shouldCancelCritBonuses(event)) {
-            ci.cancel();
+        if (PassiveIntegration.isLoaded("cgm")) {
+            if (OptionalBonusAction.shouldCancelCritBonuses(event)) {
+                ci.cancel();
+            }
         }
     }
 
@@ -29,10 +27,8 @@ public class SkillBonusHandlerMixin {
             at = @At(value = "HEAD"),
             remap = false)
     private static void passiveIntegration$applyArrowRetrievalBonus(LivingHurtEvent event, CallbackInfo ci) {
-        if (!PassiveIntegration.isLoaded("cgm")) {
-            return;
+        if (PassiveIntegration.isLoaded("cgm")) {
+            OptionalBonusAction.handleArrowRetrieval(event);
         }
-
-        OptionalBonusAction.handleArrowRetrieval(event);
     }
 }
