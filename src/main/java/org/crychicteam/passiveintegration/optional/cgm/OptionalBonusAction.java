@@ -1,4 +1,4 @@
-package org.crychicteam.passiveintegration.mixins.cgm.bonuscompat.crithandler;
+package org.crychicteam.passiveintegration.optional.cgm;
 
 import com.mrcrayfish.guns.entity.ProjectileEntity;
 import com.mrcrayfish.guns.init.ModEnchantments;
