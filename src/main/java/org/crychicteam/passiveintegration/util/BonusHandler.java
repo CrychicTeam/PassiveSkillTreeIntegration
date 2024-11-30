@@ -248,7 +248,9 @@ public class BonusHandler {
     public void handleArrowRetrieval(LivingEntity target, AbstractArrow arrow, Player player) {
         AbstractArrowAccessor arrowAccessor = (AbstractArrowAccessor) arrow;
         ItemStack arrowStack = arrowAccessor.invokeGetPickupItem();
-        if (arrowStack == null) return;
+        if (arrowStack == null) {
+            return;
+        }
 
         float retrievalChance = 0.0F;
         for (ArrowRetrievalBonus bonus : getSkillBonuses(player, ArrowRetrievalBonus.class)) {

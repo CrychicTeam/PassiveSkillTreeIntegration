@@ -6,13 +6,13 @@
   "refmap": "passiveintegration.refmap.json",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "cgm.bonuscompat.ReloadTrackerMixin",
-    "cgm.bonuscompat.ServerPlayHandlerMixin",
-    "cgm.bonuscompat.conditions.EnchantedConditionMixin",
-    "cgm.bonuscompat.conditions.EquipmentConditionMixin",
-    "cgm.bonuscompat.conditions.ProjectileDamageConditionMixin",
-    "cgm.bonuscompat.crithandler.ProjectileEntityCritMixin",
-    "cgm.bonuscompat.crithandler.SkillBonusHandlerMixin"
+    "integrations.cgm.ReloadTrackerMixin",
+    "integrations.cgm.ServerPlayHandlerMixin",
+    "conditions.EnchantedConditionMixin",
+    "conditions.EquipmentConditionMixin",
+    "conditions.ProjectileDamageConditionMixin",
+    "integrations.cgm.ProjectileEntityCritMixin",
+    "SkillBonusHandlerMixin"
   ],
   "client": [
   ],

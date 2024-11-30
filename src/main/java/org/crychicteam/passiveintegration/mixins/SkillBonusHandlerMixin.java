@@ -1,9 +1,9 @@
-package org.crychicteam.passiveintegration.mixins.cgm.bonuscompat.crithandler;
+package org.crychicteam.passiveintegration.mixins;
 
 import daripher.skilltree.skill.bonus.SkillBonusHandler;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import org.crychicteam.passiveintegration.PassiveIntegration;
-import org.crychicteam.passiveintegration.optional.cgm.OptionalBonusAction;
+import org.crychicteam.passiveintegration.optional.cgm.OptionalBonusCgmAction;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -17,7 +17,7 @@ public class SkillBonusHandlerMixin {
             cancellable = true)
     private static void passiveIntegration$applyCriticalBonuses(LivingHurtEvent event, CallbackInfo ci) {
         if (PassiveIntegration.isLoaded("cgm")) {
-            if (OptionalBonusAction.shouldCancelCritBonuses(event)) {
+            if (OptionalBonusCgmAction.shouldCancelCritBonuses(event)) {
                 ci.cancel();
             }
         }
@@ -28,7 +28,7 @@ public class SkillBonusHandlerMixin {
             remap = false)
     private static void passiveIntegration$applyArrowRetrievalBonus(LivingHurtEvent event, CallbackInfo ci) {
         if (PassiveIntegration.isLoaded("cgm")) {
-            OptionalBonusAction.handleArrowRetrieval(event);
+            OptionalBonusCgmAction.handleArrowRetrieval(event);
         }
     }
 }

@@ -1,4 +1,4 @@
-package org.crychicteam.passiveintegration.mixins.cgm.bonuscompat;
+package org.crychicteam.passiveintegration.mixins.integrations.cgm;
 
 import com.mrcrayfish.guns.common.ReloadTracker;
 import com.mrcrayfish.guns.util.GunEnchantmentHelper;

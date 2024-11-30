@@ -20,18 +20,18 @@ import org.crychicteam.passiveintegration.util.BonusHandler;
 /**
  * @author M1hono
  */
-public class OptionalBonusAction {
-    public static boolean isProjectileDamage(DamageSource source, boolean originalResult) {
-        return originalResult || source.getDirectEntity() instanceof ProjectileEntity;
+public class OptionalBonusCgmAction {
+    public static boolean isProjectileDamage(DamageSource source) {
+        return source.getDirectEntity() instanceof ProjectileEntity;
     }
 
-    public static boolean isRangedWeapon(ItemStack stack, boolean originalResult) {
-        return originalResult || stack.getItem() instanceof GunItem;
+    public static boolean isRangedWeapon(ItemStack stack) {
+        return stack.getItem() instanceof GunItem;
     }
 
-    public static boolean isEnchanted(ItemStack stack, boolean originalResult) {
-        return originalResult || (stack.getItem() instanceof GunItem &&
-                !EnchantmentHelper.getEnchantments(stack).isEmpty());
+    public static boolean isEnchanted(ItemStack stack) {
+        return stack.getItem() instanceof GunItem &&
+                !EnchantmentHelper.getEnchantments(stack).isEmpty();
     }
 
     public static boolean shouldCancelCritBonuses(LivingHurtEvent event) {

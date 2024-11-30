@@ -1,4 +1,4 @@
-package org.crychicteam.passiveintegration.mixins.cgm.bonuscompat;
+package org.crychicteam.passiveintegration.mixins.integrations.cgm;
 
 import com.mrcrayfish.guns.common.network.ServerPlayHandler;
 import com.mrcrayfish.guns.network.message.C2SMessageShoot;
@@ -10,7 +10,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
-import org.crychicteam.passiveintegration.PassiveIntegration;
 import org.crychicteam.passiveintegration.config.CgmConfig;
 import org.crychicteam.passiveintegration.util.BonusHandler;
 import org.spongepowered.asm.mixin.Mixin;

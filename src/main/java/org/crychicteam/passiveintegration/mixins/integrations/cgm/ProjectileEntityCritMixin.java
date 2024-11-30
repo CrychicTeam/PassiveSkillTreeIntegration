@@ -1,4 +1,4 @@
-package org.crychicteam.passiveintegration.mixins.cgm.bonuscompat.crithandler;
+package org.crychicteam.passiveintegration.mixins.integrations.cgm;
 
 import com.mrcrayfish.guns.entity.ProjectileEntity;
 import com.mrcrayfish.guns.init.ModDamageTypes;
